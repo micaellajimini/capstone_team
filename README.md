@@ -4,4 +4,4 @@
 
 capstone_design I
 <br/>
-이재하 오지민 윤남희 정현태
+[이재하](https://github.com/LEE-JAEHA) [오지민](https://github.com/micaellajimini) [윤남희](https://github.com/nami0195103) [정현태](https://github.com/htjung94)
