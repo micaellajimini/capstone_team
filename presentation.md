@@ -7,7 +7,7 @@
 차량이 현재 주행 중인지, 정차 중인지, 또는 완전히 주차한 상황인지를 파악하고 차량 내부에 아이가 남아있는지를 파악합니다
 <br/><br/>
 ## Technology
-<img src="https://github.com/micaellajimini/capstone_team/blob/master/diagram.jpeg" width=210>
+<img src="https://github.com/micaellajimini/capstone_team/blob/master/diagram.jpeg" width=350>
 
 1. PART 1
     - **Node.js** ~~(or Django)~~ 이용하여 **EC2**에서 웹서버 구동
@@ -24,7 +24,7 @@
 <br/>
 
 ## Dataflow in detail
-<img src="https://github.com/micaellajimini/capstone_team/blob/master/dataflow.png" width=500>
+<img src="https://github.com/micaellajimini/capstone_team/blob/master/dataflow.png" width=600>
 <br/>
 
 ##### **_네트워크가 연결되어 있음. 아두이노에 전원이 공급되어 있음을 가정_**
