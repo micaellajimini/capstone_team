@@ -1,7 +1,7 @@
 # Capstone_team
 
 ### team 3. 너의 목소리가 들려
-
+### git
 
 capstone_design I
 <br/>
