@@ -1,6 +1,7 @@
 # Capstone_team
 
 ### team 3. 너의 목소리가 들려
+### git_for_team
 
 capstone_design I (2019)
 <br/><br/>
