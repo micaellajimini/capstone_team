@@ -1,6 +1,13 @@
 const int trigPin = 2;  //D4
 const int echoPin = 0;  //D3
+////////vibrate sensor
+const int analogInPin = A0;
+char buffer[50];
+int soundSensor = 0;
+float voltSensor = 0.0;
+////////
 int sensor = 13; // D7
+
 void setup() {
   pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
   pinMode(echoPin, INPUT); // Sets the echoPin as an Input
@@ -27,6 +34,13 @@ void loop() {
   /*PIR SENSOR*/
   long state = digitalRead(sensor);
   int Limit=10000;
+  //////////////////////////////////////
+  //vibrate sensor
+  soundSensor = analogRead(analogInPin);
+  Serial.print("Analog = " );
+  Serial.print(soundSensor);
+  Serial.print("\n");
+  /////////////////////////////////////
   if (Limit < distance || state != HIGH ){//no man
     Serial.print(distance);
     Serial.println("cm");
