@@ -1,0 +1,23 @@
+{
+  "name": "capstone_team",
+  "version": "1.0.0",
+  "description": "baby_crying",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/micaellajimini/capstone_team.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/micaellajimini/capstone_team/issues"
+  },
+  "homepage": "https://github.com/micaellajimini/capstone_team#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "request": "^2.88.0"
+  }
+}
