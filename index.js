@@ -7,7 +7,7 @@ const TARGET_URL = 'https://notify-api.line.me/api/notify'
 var app = express();
 
 //router name set needed
-app.get('/',function(req,res){
+app.get('/alarm',function(req,res){
 	request.post({
 		url: TARGET_URL,
 		headers: {
