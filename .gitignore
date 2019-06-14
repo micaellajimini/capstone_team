@@ -87,5 +87,6 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
+config_wifi.h
 config_cap.js
 # End of https://www.gitignore.io/api/node

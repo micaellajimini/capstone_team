@@ -1,4 +1,7 @@
 #include "arduinoFFT.h"
+#include <ESP8266WiFi.h>
+#include <ESP8266WiFiMulti.h>
+#include "config_wifi.h"
 const int trigPin = 2;  //D4
 const int echoPin = 0;  //D3
 ////////vibrate sensor
@@ -8,6 +11,8 @@ int soundSensor = 0;
 float voltSensor = 0.0;
 ////////
 int sensor = 13; // D7
+int buzzer = 14; // D5
+int button = 12; // D6
 /////////////////////sound sensor
 
 arduinoFFT FFT = arduinoFFT(); /* Create FFT object */
@@ -18,6 +23,7 @@ const uint16_t samples = 128; //This value MUST ALWAYS be a power of 2
 double signalFrequency = 1000;
 double samplingFrequency = 44000;
 uint8_t amplitude = 100;
+ESP8266WiFiMulti WiFiMulti;
 /*
 These are the input and output vectors
 Input vectors receive computed results from FFT
@@ -32,9 +38,24 @@ double vImag[samples];
 
 //////////////////////
 void setup() {
+  WiFiMulti.addAP(wifiName, passwd);
   pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
+  pinMode(buzzer, OUTPUT);
+  pinMode(button, INPUT);
   pinMode(echoPin, INPUT); // Sets the echoPin as an Input
   pinMode(sensor, INPUT);
+
+  while (WiFiMulti.run() != WL_CONNECTED) {
+	Serial.print(".");
+	delay(500);
+  }
+
+  Serial.println("");
+  Serial.println("WiFi connected");
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());
+
+  delay(500);
   Serial.begin(9600); // Starts the serial communication
 }
 void PrintVector(double *vData, uint8_t bufferSize, uint8_t scaleType)
@@ -51,6 +72,15 @@ void PrintVector(double *vData, uint8_t bufferSize, uint8_t scaleType)
 void loop() {
   long duration, distance = -1;
   // Clears the trigPin
+  WiFiClient client;
+  const char * host = "http://52.79.241.44"; // ip or dns
+  String url = "/alarm?sign=";
+  uint16_t port = 8000;
+
+  if (!client.connect(host, port)) {
+  	Serial.println("connection failed");
+	return;
+  }
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
   // Sets the trigPin on HIGH state for 10 micro seconds
@@ -95,7 +125,8 @@ void loop() {
 
     float gap = vReal[1]-vReal[0];
     float tmp_flag = 100;//temp value
-    if (gap <0){
+	int flag = 0;
+	if (gap <0){
         gap*=-1
     }
     if (gap > tmp_flag){//애기 감지
@@ -103,7 +134,20 @@ void loop() {
         PrintVector(vReal, (samples >> 1), SCL_FREQUENCY);
     }
     else{
-        PrintVector(vReal, (samples >> 1), SCL_FREQUENCY);
+        for(int i=0;i<200;i++){
+			digitalWrite(buzzer,HIGH);
+			if(digitalRead(button)== HIGH){
+				flag = 1;
+				break;
+			}
+			delay(100);
+		}
+		if(flag == 0) {
+			url += "0";
+			client.print(String("GET ") + url + " HTTP/1.1\r\n" + "Host: " + host + "\r\n" + "Connection: close\r\n\r\n");
+		}//push alarm
+		//else pass
+		PrintVector(vReal, (samples >> 1), SCL_FREQUENCY);
     }
 
 
