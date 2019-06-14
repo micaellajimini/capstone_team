@@ -38,13 +38,17 @@ double vImag[samples];
 
 //////////////////////
 void setup() {
+  Serial.begin(115200); // Starts the serial communication
+  delay(10);
   WiFiMulti.addAP(wifiName, passwd);
+  
   pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
   pinMode(buzzer, OUTPUT);
   pinMode(button, INPUT);
   pinMode(echoPin, INPUT); // Sets the echoPin as an Input
   pinMode(sensor, INPUT);
 
+  
   while (WiFiMulti.run() != WL_CONNECTED) {
 	Serial.print(".");
 	delay(500);
@@ -56,7 +60,6 @@ void setup() {
   Serial.println(WiFi.localIP());
 
   delay(500);
-  Serial.begin(9600); // Starts the serial communication
 }
 void PrintVector(double *vData, uint8_t bufferSize, uint8_t scaleType)
 {
@@ -73,9 +76,9 @@ void loop() {
   long duration, distance = -1;
   // Clears the trigPin
   WiFiClient client;
-  const char * host = "http://52.79.241.44"; // ip or dns
+  const char * host = "52.79.241.44"; // ip or dns
   String url = "/alarm?sign=";
-  uint16_t port = 8000;
+  uint16_t port = 3000;
 
   if (!client.connect(host, port)) {
   	Serial.println("connection failed");
@@ -100,20 +103,18 @@ void loop() {
   int Limit=10000;
   //////////////////////////////////////
   //vibrate sensor
-  soundSensor = analogRead(analogInPin);
+  vibrate_value = analogRead(analogInPin);
   Serial.print("Analog = " );
-  Serial.print(soundSensor);
+  Serial.print(distance);
   Serial.print("\n");
   /////////////////////////////////////
   if ( state != HIGH ){//no man
-    Serial.print(distance);
-    Serial.println("cm");
-    Serial.print(state);
-    Serial.println("----------------------");
-    delay(2000);
+  	Serial.println("There is no person");
+	delay(2000);
   }
   else{// there is a man
-    for (uint8_t i = 0; i < samples; i++)
+    Serial.println("There is a person, detect with PIR SENSOR");
+	  for (uint8_t i = 0; i < samples; i++)
     {
         vReal[i] = analogRead(A0);
         delayMicroseconds(100);
@@ -127,28 +128,30 @@ void loop() {
     float tmp_flag = 100;//temp value
 	int flag = 0;
 	if (gap <0){
-        gap*=-1
+        gap*=-1;
     }
     if (gap > tmp_flag){//애기 감지
-        print("There is a Baby in the car")
+        //print("There is a Baby in the car")
         PrintVector(vReal, (samples >> 1), SCL_FREQUENCY);
     }
     else{
         for(int i=0;i<200;i++){
 			digitalWrite(buzzer,HIGH);
-			if(digitalRead(button)== HIGH){
+			delay(1000);
+			digitalWrite(buzzer,LOW);
+			if(digitalRead(button)== LOW){
 				flag = 1;
 				break;
 			}
-			delay(100);
 		}
 		if(flag == 0) {
 			url += "0";
 			client.print(String("GET ") + url + " HTTP/1.1\r\n" + "Host: " + host + "\r\n" + "Connection: close\r\n\r\n");
 		}//push alarm
 		//else pass
-		PrintVector(vReal, (samples >> 1), SCL_FREQUENCY);
+		//PrintVector(vReal, (samples >> 1), SCL_FREQUENCY);
     }
+	flag = 0;
 
 
       Serial.println("Motion Detected");

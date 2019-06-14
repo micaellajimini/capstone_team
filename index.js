@@ -8,6 +8,8 @@ var app = express();
 
 //router name set needed
 app.get('/alarm',function(req,res){
+	console.log(req.query);
+	if(req.query.sign == '0'){
 	request.post({
 		url: TARGET_URL,
 		headers: {
@@ -20,9 +22,10 @@ app.get('/alarm',function(req,res){
 	}, (error, response, body) => {
 		console.log(body)
 	})	
+	}
 });
 
-app.listen(8000, function(){
+app.listen(3000, function(){
 //	console.log(config.TOKEN);
 	console.log('listening on port 8000!');		
 });
