@@ -6,8 +6,8 @@
 어린이집 등하원 차량에 아이가 혼자 남겨질 경우, 이를 파악하여 운전자, 어린이집 선생님, 또는 부모님에게 알려주는 서비스<br/>
 차량이 현재 주행 중인지, 정차 중인지, 또는 완전히 주차한 상황인지를 파악하고 차량 내부에 아이가 남아있는지를 파악합니다
 <br/><br/>
-## Technology  <img src="https://github.com/micaellajimini/capstone_team/blob/master/image/technology_image.png" width=30>
-<img src="https://github.com/micaellajimini/capstone_team/blob/master/image/diagram.jpeg" width=350>
+## Technology
+<img src="https://github.com/micaellajimini/capstone_team/blob/master/image/diagram.png" width=750>
 
 1. PART 1
     - **Node.js** ~~(or Django)~~ 이용하여 **EC2**에서 웹서버 구동
