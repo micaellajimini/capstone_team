@@ -56,17 +56,7 @@ void setup() {
   Serial.println(WiFi.localIP());
   delay(500);
 }
-void PrintVector(double *vData, uint8_t bufferSize, uint8_t scaleType)
-{
-  for (uint16_t i = 0; i < bufferSize; i++)
-  {
-    uint8_t val_temp = map(vData[i], 0, 1000, 0, 255);
-    Serial.print(i);
-    Serial.print(" ");
-    Serial.println(val_temp);
-  }
-  Serial.println("");
-}
+
 void loop() {
   long duration, distance = -1;
   // Clears the trigPin
@@ -172,12 +162,9 @@ void loop() {
         FFT.Windowing(vReal, samples, FFT_WIN_TYP_HAMMING, FFT_FORWARD);  /* Weigh data */
         FFT.Compute(vReal, vImag, samples, FFT_FORWARD); /* Compute FFT */
         FFT.ComplexToMagnitude(vReal, vImag, samples); /* Compute magnitudes */
-        float gap = vReal[1] - vReal[0];
-        float tmp_flag = 1000000;//temp value
+        uint8_t standard_value = map(vReal[3],0,1000,0,255);
+        //float tmp_flag = 1000000;//temp value
         int flag = 0;
-        if (gap < 0) {
-          gap *= -1;
-        }
 
         if (!client.connect(host, port)) {
           Serial.println("connection failed");
@@ -186,7 +173,7 @@ void loop() {
         else {
           Serial.println("connection Success!!");
         }
-        if (gap > tmp_flag) { //애기 감지
+        if(standard_vaule > 10) { //애기 감지
           Serial.println("There is a Baby in the car");
           //PrintVector(vReal, (samples >> 1), SCL_FREQUENCY)
           //알림보내기
