@@ -25,7 +25,7 @@
 <br/>
 
 ## Dataflow in detail
-<img src="https://github.com/micaellajimini/capstone_team/blob/master/image/dataflow.png" width=600>
+<img src="https://github.com/micaellajimini/capstone_team/blob/master/image/sudo_code.png" width=600>
 <br/>
 
 ##### **_네트워크가 연결되어 있음. 아두이노에 전원이 공급되어 있음을 가정_**
@@ -36,8 +36,7 @@
 * 마이크를 통해 입력되는 소리의 세기 변화를 일시적으로 모음`데이터 수집`
 * 측정한 데이터가 운전자가 없고 + 차가 정지한 상태이고 + 아기 울음소리 주파수 영역에 해당되면 line api으로 알림 보내기`endpoint`
 * 측정한 데이터가 운전자가 없고 + 차가 정지한 상태이고 + 어른이라고 알림이 오지 않았을 경우 line api으로 알림 보내기`endpoint`
-~~<br/> _to be continued_
-* PIR센서를 사용하여 아기의 움직임 감지하여 아기 울음소리 감지 기능과 함께 판단하여 신뢰도 높이기~~
+~~* PIR센서를 사용하여 아기의 움직임 감지하여 아기 울음소리 감지 기능과 함께 판단하여 신뢰도 높이기~~
 
 > Advice 
 * 차 안의 온도, 산소, 이산화탄소 농도같은 요소도 측정해보시는게 좋아보입니다.
